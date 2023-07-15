@@ -83,7 +83,6 @@ class Dinosaur:
 
     def background(self):
         self.image = CLOUD
-        self.rect = self.image.get_re
         self.rect.x -= self.cloud_speed
         if self.rect.x <= 0:
             self.rect.x = self.X_CLOUND    
