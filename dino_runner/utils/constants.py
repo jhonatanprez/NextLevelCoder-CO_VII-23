@@ -66,6 +66,8 @@ SHIELD = pygame.image.load(os.path.join(IMG_DIR, 'Other/shield.png'))
 HAMMER = pygame.image.load(os.path.join(IMG_DIR, 'Other/hammer.png'))
 PLANT = pygame.image.load(os.path.join(IMG_DIR, 'Other/planta.png'))
 
+DART= pygame.image.load(os.path.join(IMG_DIR, 'Other/flecha.png'))
+
 BG = pygame.image.load(os.path.join(IMG_DIR, 'Other/Track.png'))
 
 HEART = pygame.image.load(os.path.join(IMG_DIR, 'Other/SmallHeart.png'))
