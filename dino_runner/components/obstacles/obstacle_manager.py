@@ -2,7 +2,7 @@ import pygame
 import random
 
 from pygame.sprite import Sprite
-from dino_runner.utils.constants import DEFAULT_TYPE, SHIELD_TYPE, DRAGON_TYPE,FIRE
+from dino_runner.utils.constants import DEFAULT_TYPE, SHIELD_TYPE, DRAGON_TYPE, FIRE
 from dino_runner.components.obstacles.cactus import Cactus
 from dino_runner.components.obstacles.bird import Bird
 from dino_runner.components.obstacles.dart import Dart
@@ -17,6 +17,7 @@ class ObstacleManager:
         self.image_fire = FIRE
         self.fires = False
         self.bono = False
+        self.has_fires = True
         self.rect = self.image_fire.get_rect()
         self.rect.x = self.POS_X
         self.rect.y = self.POS_Y
@@ -25,6 +26,7 @@ class ObstacleManager:
         self.obstacle_next = self.obstacle
 
     def update(self,game, user_input):
+        self.bono = False
         if not self.has_obstacle:
             self.create_obstacle()
         self.has_obstacle = self.obstacle.update(game.game_speed)  
@@ -40,16 +42,18 @@ class ObstacleManager:
             self.fires= True
             if user_input[pygame.K_LCTRL]:
                 self.bono = True
-                self.rect = self.image_fire.get_rect()
                 self.rect.x = self.POS_X
                 self.rect.y = self.POS_Y
-                self.fires = self.obstacle.update(game.game_speed) 
-                if self.image_fire.colliderect (self.obstacle.rect):
+
+                if self.rect.colliderect (self.obstacle.rect):
                     self.has_obstacle = False
-                    self.bono = False
                     self.cont += 1
+                    self.bono = False
                     if self.cont == 3:
                         game.player.type = DEFAULT_TYPE
+        
+                        
+                        
                     
 
 
@@ -64,7 +68,6 @@ class ObstacleManager:
     def draw (self,screen ):
         if self.has_obstacle:
             self.obstacle.draw(screen)
-        if self.fires:
-            if self.bono:
-                screen.blit(self.image_fire,self.rect)
+        if self.bono and self.has_obstacle:
+            screen.blit(self.image_fire,self.rect)
 
