@@ -3,6 +3,7 @@ from dino_runner.components.obstacles.obstacle_manager import ObstacleManager
 from dino_runner.components.powerups.powerup_manager import PowerUpManager
 from dino_runner.utils.constants import (
     BG,
+    DESERT,
     ICON,
     SCREEN_HEIGHT,
     SCREEN_WIDTH,
@@ -22,7 +23,7 @@ class Game:
         self.playing = False
         self.game_speed = 20
         self.x_pos_bg = 0
-        self.y_pos_bg = 380
+        self.y_pos_bg = 0
         self.player = Dinosaur()
         self.obstacle_manager = ObstacleManager()
         self.powerup_manager = PowerUpManager()
@@ -44,7 +45,7 @@ class Game:
 
     def update(self):
         self.player.update(pygame.key.get_pressed())
-        self.obstacle_manager.update(self)
+        self.obstacle_manager.update(self ,pygame.key.get_pressed())
         self.powerup_manager.update(self)
         self.increase_score()
 
@@ -62,10 +63,10 @@ class Game:
         self.score += 1
 
     def draw_background(self):
-        image_width = BG.get_width()
-        self.screen.blit(BG, (self.x_pos_bg, self.y_pos_bg))
-        self.screen.blit(BG, (image_width + self.x_pos_bg, self.y_pos_bg))
+        image_width = DESERT.get_width()
+        self.screen.blit(DESERT, (self.x_pos_bg, self.y_pos_bg))
+        self.screen.blit(DESERT, (image_width + self.x_pos_bg, self.y_pos_bg))
         if self.x_pos_bg <= -image_width:
-            self.screen.blit(BG, (image_width + self.x_pos_bg, self.y_pos_bg))
+            self.screen.blit(DESERT, (image_width + self.x_pos_bg, self.y_pos_bg))
             self.x_pos_bg = 0
         self.x_pos_bg -= self.game_speed
